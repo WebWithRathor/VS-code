@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VS code</title>
+    <link rel="shortcut icon" href="/images/pngwing.com.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="main">
+      <div id="home">
+        <div class="overlay">
+          <form action="<%= files.name %>/rename">
+            <input name="newname" type="text" id="rename">
+            <input type="submit" value="update">
+            <i class="ri-close-line"></i>
+          </form>
+        </div>
+        <div class="left">
+          <div class="head">
+            <h2><a href="/"><%= folder%></a></h2>
+            <div class="icons">
+              <i class="createfile ri-file-add-line"></i>
+              <i class="createfolder ri-folder-add-line"></i>
+              <a href="/back"><i class="ri-restart-line"></i></a>
+            </div>
+          </div>
+          <div class="files">
+            <form id="Newcreatefile" action="/newfile" method="get">
+                  <i class="ri-file-line"></i>
+              <input  type="text" placeholder="Filename" name="newfile">
+            </form>
+            <form id="Newcreatefolder" action="/newfolder" method="get">
+                  <i class="ri-folder-line"></i>
+              <input  type="text" placeholder="foldername" name="newfolder">
+            </form>
+            <% files.forEach(function(file){%>
+              <div class="file">
+                <div class="filename">
+                  <%if (file.isDirectory()){%>
+    
+                    <i class="ri-folder-line"></i>
+                    <h4><a href="/folder/<%=file.name%>"><%= file.name%></a></h4>
+                    <%}else{%>
+                      <i class="ri-file-line"></i>
+                      <h4><a href="/file/<%=file.name%>"><%= file.name%></a></h4>
+                    
+                    <%}%>
+                </div>
+                <div class="icons">
+                  <i class="ri-pencil-line" id="renamepen" data-filename="<%=file.name%>" ></i>
+                  <%if (file.isDirectory()){%>
+                    <a href="/deletefolder/<%=file.name%>"><i class="ri-delete-bin-line"></i></a>
+                    <%}else{%>
+                      <a href="/deletefile/<%=file.name%>"><i class="ri-delete-bin-line"></i></a>
+                    <%}%>
+                </div>
+              </div>
+              <%if (file.isDirectory()){%>
+                <% if(file.name === foldernam){%>
+                <div class="filedetail">
+                  <% file2.forEach(function(filer){%>
+                   <div class="folderfile">
+                    <div class="foldersfilename">
+                    <%if (filer.isDirectory()){%>
+    
+                      <i class="ri-folder-line"></i>
+                      <h4><%= filer.name%></h4>
+                      <%}else{%>
+                        <i class="ri-file-line"></i>
+                        <h4><%= filer.name%></h4>
+                      
+                      <%}%>
+                    </div>
+                      <div class="icons">
+                        <i class="ri-pencil-line" id="renamepen" data-filename="<%=filer.name%>" ></i>
+                        <%if (filer.isDirectory()){%>
+                          <a href="/deletefolder/<%=filer.name%>"><i class="ri-delete-bin-line"></i></a>
+                          <%}else{%>
+                            <a href="/deletefile/<%=filer.name%>"><i class="ri-delete-bin-line"></i></a>
+                          <%}%>
+                      </div>
+                   </div>
+
+                  <% }) %>
+                </div>
+                <% } %>
+  
+                <%}else{%>
+             
+
+                <%}%>
+            <% }) %>
+            
+          </div>
+        </div>
+        <div class="right">
+          <img src="/images/pngwing.com.png" alt="">
+                <a href="/"><i class="ri-close-circle-fill"></i></a>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <script src="/javascripts/script.js"></script>
+  </body>
+</html>
